@@ -10,9 +10,20 @@ header {
   padding-bottom: 0.5rem;
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 2rem;
+
 }
-h1 {
+header nav {
+  margin-left: auto; 
+  display: flex;
+  gap: 0.7rem;
+}
+header h1 {
+  padding: 0.1em 0.4em;
+  border-left: 3px solid #e9e9e9;
+  padding-left: 1rem;
+}
+h1:not(header h1) {
   background-color: #282828;
   background-image: 
     linear-gradient(to right, #282828 40%, transparent 70%),
@@ -25,7 +36,10 @@ h1 {
 h2 {
   margin-bottom: 0;
 }
-
+h3 {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+}
 a:link {
   color: #5ca4f8;
 }
@@ -36,8 +50,8 @@ a:hover {
   color: #ffffff;
 }
 .profile-image {
-  width: 70px;
-  height: 70px;
+  width: 50px;
+  height: 50px;
 }
 p, ul {
   margin-top: 0.2em;
