@@ -6,11 +6,12 @@ function renderMeta(note) {
 }
 
 function renderCard(note) {
+  const url = `notes/${note.id}.html`;
   const card = document.createElement('div');
   card.className = 'card';
   card.dataset.tags = note.tags.join(',');
   card.innerHTML = `
-    <h3><a href="${note.url}">${note.title}</a></h3>
+    <h3><a href="${url}">${note.title}</a></h3>
     <p>${note.description}</p>
     ${renderMeta(note)}
   `;
@@ -31,3 +32,11 @@ function renderNoteDetail(id) {
     metaEl.innerHTML = renderMeta(current);
   }
 }
+
+const metaEl = document.querySelector('.meta');
+if (metaEl) {
+  const filename = window.location.pathname.split('/').pop();
+  const id = filename.replace('.html', '');
+  renderNoteDetail(id);
+}
+
