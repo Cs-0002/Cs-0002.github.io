@@ -5,8 +5,12 @@ function renderMeta(note) {
   `;
 }
 
+function getNoteUrl(note) {
+  return `notes/${note.id}.html`;
+}
+
 function renderCard(note) {
-  const url = `notes/${note.id}.html`;
+  const url = getNoteUrl(note);
   const card = document.createElement('div');
   card.className = 'card';
   card.dataset.tags = note.tags.join(',');
@@ -40,3 +44,11 @@ if (metaEl) {
   renderNoteDetail(id);
 }
 
+function renderWorkItem(note) {
+  const url = getNoteUrl(note);
+  const li = document.createElement('li');
+  li.innerHTML = `
+    <a href="${url}">${note.title}</a> - ${note.description}
+  `;
+  return li;
+}

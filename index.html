@@ -51,12 +51,7 @@
     </section>
     <section>
       <h1>Work</h1>
-      <ul>
-        <li>
-          <a href="https://github.com/Cs-0002/lism.nvim">lism.nvim</a> - Neovim上でLispのプログラムを見やすくするプラグイン
-        </li>
-
-      </ul>
+      <ul class="work-list"></ul>
     </section>
     <section>
       <h1>Links</h1>
@@ -66,5 +61,17 @@
         <li><a href="https://zenn.dev/cs_0002">Zenn</a></li>
       </ul>
     </section>
+
+    <script src="notesData.js"></script>
+    <script src="notesRender.js"></script>
+    <script>
+      const workList = document.querySelector('.work-list');
+      if (workList) {
+        const workItems = notesData.filter(note => note.tags.includes("#work"));
+        workItems.forEach(note => {
+          workList.appendChild(renderWorkItem(note));
+        });
+      }
+    </script>
   </body>
 </html>
