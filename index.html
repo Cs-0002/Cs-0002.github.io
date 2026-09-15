@@ -8,12 +8,6 @@
   </head>
   <body>
     <header>
-      <img src="images/アイコン.png" class="profile-image" alt="アイコン">
-      <h1>Index</h1>
-      <nav>
-        <a href="index.html">Index</a>
-        <a href="notes.html">Notes</a>
-      </nav>
     </header>
     <h1>Profile</h1>
     <section>
@@ -64,6 +58,8 @@
 
     <script src="notesData.js"></script>
     <script src="notesRender.js"></script>
+    <script src="headerRender.js"></script>
+    <script>renderHeader("Index");</script>
     <script>
       const workList = document.querySelector('.work-list');
       if (workList) {
