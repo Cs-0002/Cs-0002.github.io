@@ -1,0 +1,16 @@
+button {
+  background-color: #111;
+  color: #fff;
+  border: none;
+  font-size: 72px;
+  width: 160px;
+  height: 160px;
+  margin: 2px;
+  vertical-align: top
+}
+.note-btn {
+  font-size: 16px;
+}
+.playing {
+  background-color: #222;
+}

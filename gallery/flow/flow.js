@@ -1,33 +1,15 @@
-document.getElementById("start-btn").addEventListener("click", async () => {
-  await Tone.start();
-  Tone.Transport.bpm.value = 100;
+Tone.Transport.bpm.value = 100;
 
-//ループ
-  const reverb = new Tone.Reverb({
-    decay: 30,
-    preDelay: 0.5,
-    wet: 0.5,
-  }).toDestination();
+//楽器、エフェクトの設定
 
-  const filter = new Tone.Filter({
-    frequency: 600,
-    type: "lowpass",
-    Q: 3,
-  }).connect(reverb);
-
+const backnote =(() => {
+  const reverb = new Tone.Reverb({decay: 30,preDelay: 0.5,wet: 0.5,}).toDestination();
+  const filter = new Tone.Filter({frequency: 600,type: "lowpass",Q: 3,}).connect(reverb);
   const pad = new Tone.PolySynth(Tone.Synth, {
-    oscillator: {
-      type: "sawtooth"
-    },
-    envelope: {
-      attack: 4,
-      decay: 0,
-      sustain: 1,
-      release: 5,
-    },
+    oscillator: {type: "sawtooth"},
+    envelope: {attack: 4,decay: 0,sustain: 1,release: 5,},
     volume: -10,
   }).connect(filter);
-
   const padPart = new Tone.Part((time, chord) => {
     pad.triggerAttackRelease(chord, "1:2", time);
   }, [
@@ -38,63 +20,78 @@ document.getElementById("start-btn").addEventListener("click", async () => {
   ]);
   padPart.loop = true;
   padPart.loopEnd = "4m";
-  padPart.start(0);
+  return { reverb, filter, pad, padPart };
+})();
 
-
+const backbass = (() => {
   const bass = new Tone.MonoSynth({
-    oscillator: {
-      type: "sawtooth"
-    },
-    envelope: {
-      attack: 3,
-      decay: 3,
-      sustain: 0,
-      release: 3,
-    },
+    oscillator: { type: "sawtooth" },
+    envelope: { attack: 3, decay: 3, sustain: 0, release: 3 },
     volume: -10,
   }).toDestination();
-
-  const bassPart = new Tone.Part((time, note) => {
-    bass.triggerAttackRelease(note, "2m", time);
+  const bassPart = new Tone.Part((time, n) => {
+    bass.triggerAttackRelease(n, "2m", time);
   }, [
     ["2:2", "C2"],
   ]);
   bassPart.loop = true;
   bassPart.loopEnd = "4m";
-  bassPart.start(0);
+  return { bass, bassPart };
+})();
 
+const note1 = (() => {
+  const reverb = new Tone.Reverb({ decay: 30, preDelay: 0.5, wet: 0.5 }).toDestination();
+  const filter = new Tone.Filter({ frequency: 600, type: "lowpass", Q: 3 }).connect(reverb);
+  const synth = new Tone.PolySynth(Tone.Synth, {
+    oscillator: { type: "sawtooth" },
+    envelope: { attack: 1, decay: 0, sustain: 1, release: 5 },
+    volume: -10,
+  }).connect(filter);
+  return { reverb, filter, synth };
+})();
+
+const note2 = (() => {
+  const reverb = new Tone.Reverb({ decay: 30, preDelay: 0.5, wet: 0.5 }).toDestination();
+  const filter = new Tone.Filter({ frequency: 600, type: "lowpass", Q: 3 }).connect(reverb);
+  const synth = new Tone.PolySynth(Tone.Synth, {
+    oscillator: { type: "sawtooth" },
+    envelope: { attack: 1, decay: 0, sustain: 1, release: 5 },
+    volume: -10,
+  }).connect(filter);
+  return { reverb, filter, synth };
+})();
+
+
+//実際に鳴らすコード
+
+document.getElementById("start-btn").addEventListener("click", async () => {
+  document.getElementById("start-btn").classList.add("playing");
+  await Tone.start();
+
+  backnote.padPart.start(0);
+  backbass.bassPart.start(0);
 
   Tone.Transport.start();
 });
 
 
-//ここからインタラクティブ予定(現在はボタンを押したらC5を鳴らすコードを仮置き)
-const reverb = new Tone.Reverb({
-  decay: 30,
-  preDelay: 0.5,
-  wet: 0.5,
-}).toDestination();
+document.querySelectorAll('.note-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    btn.classList.toggle('playing');
+  });
+});
 
-const filter = new Tone.Filter({
-  frequency: 600,
-  type: "lowpass",
-  Q: 3,
-}).connect(reverb);
-
-const pad_user = new Tone.PolySynth(Tone.Synth, {
-  oscillator: {
-    type: "sawtooth"
-  },
-  envelope: {
-    attack: 1,
-    decay: 0,
-    sustain: 1,
-    release: 5,
-  },
-  volume: -10,
-}).connect(filter);
-
-document.getElementById('note-btn').addEventListener('click', () => {
-  pad_user.triggerAttackRelease("C5", "1n");
-
+document.getElementById('note1').addEventListener('click', () => {
+  if (note1.synth.activeVoices > 0) {
+    note1.synth.releaseAll();
+  } else {
+    note1.synth.triggerAttack("C5");
+  }
+});
+document.getElementById('note2').addEventListener('click', () => {
+  if (note2.synth.activeVoices > 0) {
+    note2.synth.releaseAll();
+  } else {
+    note2.synth.triggerAttack("E5");
+  }
 });
