@@ -1,6 +1,6 @@
 Tone.Transport.bpm.value = 100;
 
-//楽器、エフェクトの設定
+//楽器、エフェクト、リズムの設定
 
 const backnote =(() => {
   const reverb = new Tone.Reverb({decay: 30,preDelay: 0.5,wet: 0.5,}).toDestination();
@@ -61,6 +61,16 @@ const note2 = (() => {
   return { reverb, filter, synth };
 })();
 
+const note3 = (() => {
+  const reverb = new Tone.Reverb({ decay: 30, preDelay: 0.5, wet: 0.5 }).toDestination();
+  const filter = new Tone.Filter({ frequency: 600, type: "lowpass", Q: 3 }).connect(reverb);
+  const synth = new Tone.PolySynth(Tone.Synth, {
+    oscillator: { type: "sawtooth" },
+    envelope: { attack: 1, decay: 0, sustain: 1, release: 5 },
+    volume: -10,
+  }).connect(filter);
+  return { reverb, filter, synth };
+})();
 
 //実際に鳴らすコード
 
@@ -95,3 +105,11 @@ document.getElementById('note2').addEventListener('click', () => {
     note2.synth.triggerAttack("E5");
   }
 });
+document.getElementById('note3').addEventListener('click', () => {
+  if (note3.synth.activeVoices > 0) {
+    note3.synth.releaseAll();
+  } else {
+    note3.synth.triggerAttack("A2");
+  }
+});
+console.log(noteInst3)
