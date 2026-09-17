@@ -6,7 +6,7 @@ function renderMeta(note) {
 }
 
 function getNoteUrl(note) {
-  return `gallery/${note.id}/index.html`;
+  return `gallery/${note.id}/`;
 }
 
 function renderCard(note) {
