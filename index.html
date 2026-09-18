@@ -48,6 +48,10 @@
       <ul class="work-list"></ul>
     </section>
     <section>
+      <h1>Gallery</h1>
+      <ul class="gallery-list"></ul>
+    </section>
+    <section>
       <h1>Links</h1>
       <ul>
         <li><a href="https://x.com/CHRONoS90008218">X</a></li>
@@ -56,10 +60,10 @@
       </ul>
     </section>
 
-    <script src="notesData.js"></script>
-    <script src="notesRender.js"></script>
-    <script src="headerRender.js"></script>
-    <script>renderHeader("Index");</script>
+    <script src="/src/notesData.js"></script>
+    <script src="/src/notesRender.js"></script>
+    <script src="/src/galleryData.js"></script>
+    <script src="/src/galleryRender.js"></script>
     <script>
       const workList = document.querySelector('.work-list');
       if (workList) {
@@ -69,5 +73,17 @@
         });
       }
     </script>
+    <script>
+      const gallerylist = document.querySelector('.gallery-list');
+      if (gallerylist) {
+        const galleryItems = galleryData;
+        galleryItems.forEach(gallery => {
+          gallerylist.appendChild(renderGalleryItem(gallery));
+        });
+      }
+    </script>
+
+    <script src="/src/headerRender.js"></script>
+    <script>renderHeader("Index");</script>
   </body>
 </html>

@@ -32,3 +32,11 @@ if (grid) {
 }
 
 
+function renderGalleryItem(note) {
+  const url = getNoteUrl(note);
+  const li = document.createElement('li');
+  li.innerHTML = `
+    <a href="${url}">${note.title}</a> - ${note.description}
+  `;
+  return li;
+}
