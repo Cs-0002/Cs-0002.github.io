@@ -1,0 +1,18 @@
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.card{
+  background-color: #2a2a2a;
+  padding: 1rem;
+  border-radius: 4px;
+}
+.tag {
+  display: inline-block;
+  background-color: #4a4a2a;
+  padding: 0.2em 0.6em;
+  border-radius: 3px;
+  font-size: 0.8em;
+  margin-right: 0.5em;
+}
