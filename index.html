@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <title>index - Csのページ</title>
-    <link rel="stylesheet" href="style.css" href="">
-    <link rel ="icon" href="images/アイコン.png">
+    <link rel="stylesheet" href="/style.css" href="">
+    <link rel ="icon" href="/images/アイコン.png">
   </head>
   <body>
     <header>
@@ -61,15 +61,14 @@
     </section>
 
     <script src="/src/notesData.js"></script>
-    <script src="/src/notesRender.js"></script>
     <script src="/src/galleryData.js"></script>
-    <script src="/src/galleryRender.js"></script>
+    <script src="/src/pageListing.js"></script>
     <script>
       const workList = document.querySelector('.work-list');
       if (workList) {
         const workItems = notesData.filter(note => note.tags.includes("#work"));
         workItems.forEach(note => {
-          workList.appendChild(renderWorkItem(note));
+          workList.appendChild(renderListItem(note, "notes"));
         });
       }
     </script>
@@ -78,7 +77,7 @@
       if (gallerylist) {
         const galleryItems = galleryData;
         galleryItems.forEach(gallery => {
-          gallerylist.appendChild(renderGalleryItem(gallery));
+          gallerylist.appendChild(renderListItem(gallery, "gallery"));
         });
       }
     </script>
