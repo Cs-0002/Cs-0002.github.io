@@ -6,8 +6,8 @@ function renderMeta(note) {
 }
 
 function getNoteUrl(note, type) {
-  if (type === "notes") return `notes/${note.id}/`;
-  if (type === "gallery") return `gallery/${note.id}/`;
+  if (type === "notes") return `/notes/${note.id}/`;
+  if (type === "gallery") return `/gallery/${note.id}/`;
 }
 
 function renderCard(note, type) {
@@ -22,6 +22,7 @@ function renderCard(note, type) {
       </div>
       ` : ''}
     <h3><a href="${url}">${note.title}</a></h3>
+    ${note.description ? `<p>${note.description}</p>` : ''}
     ${renderMeta(note)}
   `;
   return card;
@@ -49,7 +50,7 @@ function renderListItem(note, type) {
 const metaEl = document.querySelector('.meta');
 if (metaEl) {
   const filename = window.location.pathname.split('/').pop();
-  const id = filename.replace('.html', '');
+  const id = window.location.pathname.replace(/\/$/, '').split('/').pop();
   const current = notesData.find(n => n.id === id);
   metaEl.innerHTML = renderMeta(current)
 }

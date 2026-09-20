@@ -4,9 +4,9 @@ function renderHeader(title) {
     <img src="/images/アイコン.png" class="profile-image" alt="アイコン">
     <h1>${title}</h1>
     <nav>
-      <a href="/index.html">Index</a>
-      <a href="/notes.html">Notes</a>
-      <a href="/gallery.html">Gallery</a>
+      <a href="/">Index</a>
+      <a href="/notes/">Notes</a>
+      <a href="/gallery/">Gallery</a>
     </nav>
   `;
 }
