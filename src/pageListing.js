@@ -41,7 +41,7 @@ function renderListItem(note, type) {
   const url = getNoteUrl(note, type);
   const li = document.createElement('li');
   li.innerHTML = `
-    <a href="${url}">${note.title}</a> - ${note.description}
+    <a href="${url}">${note.title}</a> - ${note.description ? note.description : ''} 
   `;
   return li;
 }
